@@ -1,0 +1,6 @@
+ <font face="宋体" size=2>
+<p>ADODB.Field</font> <font face="宋体" size=2>错误 '800a0bcd'</font>
+<p>
+<font face="宋体" size=2>BOF 或 EOF 中有一个是“真”，或者当前的记录已被删除，所需的操作要求一个当前的记录。</font>
+<p>
+<font face="宋体" size=2>/dbsdb/tp.asp</font><font face="宋体" size=2>，行 22</font> 
