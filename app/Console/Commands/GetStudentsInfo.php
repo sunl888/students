@@ -33,7 +33,7 @@ class GetStudentsInfo
             "Secure" => false,
             "Session" => true,
             "StoreId" => "0",
-            "Value" => "6DB3A98D59A57EF5C4C73CCF64F47662130C168BB1881AA35CBB9C17B0035883414A90005AF0F9C909E54AA52097DA153BE5C4B0489D582CDAC74BDEB038CB151A0D76CF4B416EEB0B4E58FE8BC82B0A68ECA5105DC541EB222F8C87EE3D99B5993E36B9BFBDA43487B4D2EB1DCABDBAC43241E3E51385CC64E78F99F8549BCD3578FABF9537854EAC23E8E4A45AB9BC0AAE3A794457B9FB5A91BFA595DB18C7E5513A557B44922411CAE4518ACC004231675D0BB9A6A7DEC0B08363B38E418E",
+            "Value" => "F6C054321B51190DBE89BAD83E9EDFB5DD9BB55AA984DE44C81D784AF20D0EE39ADDC8575D9436A33607A003F8B95C9A215841D3B77252470AA271DADDC15C4DC1664BA8E9AAD7D335479318EB9ECBC8CE8F3DB1B38803411B2220DB73D324DEFBDE5EEE8A78162C6CE9E4FC9D1FB82CDED187136838C7A0280439745DE100C3AC658BCB07C27EBBEE0AAB39FB522FA8471472FE34B635200FDD2C41F4BBD601A979205C12479E399F84C5EE3BECC9BB5C6A43429F297D9A1DAFE51513806133",
         ]
     ];
     private $client = '';
@@ -68,7 +68,7 @@ class GetStudentsInfo
             event(new WriteStudents($this->studentsInfoStack));
             $this->studentsInfoStack = [];
         }
-        dd('test end');*/
+        */
         $i = 0;
         // 年级 11-16
         for ($grade = 17; $grade <= 17; $grade++) {
@@ -81,7 +81,7 @@ class GetStudentsInfo
                         // 学号 01-66
                         for ($stu = 1; $stu <= 66; $stu++) {
                             $studentNum = trim($grade . sprintf("%02d", $department) . sprintf("%02d", $this->majors[$majorIndex - 1]) . sprintf("%02d", $class) . sprintf("%02d", $stu));
-                            $this->getStudentInfoFromXGW($studentNum);
+                            $this->getStudentInfoFromXGW($this->encrypt($studentNum));
                             echo ++$i . ' ' . $studentNum . "\n";
                         }
                         // 将该班所有同学的信息保存
@@ -94,6 +94,22 @@ class GetStudentsInfo
             }
         }
     }
+	// 加密
+	public function encrypt($data){
+        $val= '';
+		for($i=0; $i<strlen($data); $i++){
+            $val = $val.chr(ord(substr($data,$i,1))+49);
+		}
+		return $val;
+	}
+	// 解密
+	public function decrypt($data){
+        $val= '';
+		for($i=0; $i<strlen($data); $i++){
+            $val = $val.chr(ord(substr($data,$i,1))-49);
+		}
+		return $val;
+	}
 
     /**
      * 从学工网上获取学生信息
